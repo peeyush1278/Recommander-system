@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Recommender</title>
+</head>
+<body>
+    <h1>Amazon Product Recommender</h1>
+    <form action="/recommend" method="post">
+        <label for="product_name">Enter a Product Name:</label>
+        <input type="text" id="product_name" name="product_name" value="{{ input_product or '' }}">
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    {% if recommendations %}
+        <h2>Recommendations for "{{ input_product }}":</h2>
+        <ul>
+            {% for rec in recommendations %}
+                <li>
+                    <strong>{{ rec.product_name }}</strong><br>
+                    Category: {{ rec.category }}<br>
+                    Rating: {{ rec.rating }}<br>
+                    Price: ₹{{ rec.actual_price }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
